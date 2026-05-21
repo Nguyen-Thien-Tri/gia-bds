@@ -1,0 +1,7 @@
+crewai==0.35.0
+langchain-google-genai==1.0.6
+crewai-tools
+firebase-admin==6.5.0
+python-dotenv==1.0.1
+pandas==2.2.2
+markdown==3.6

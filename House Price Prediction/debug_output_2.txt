@@ -1,0 +1,43 @@
+Column names and indices:
+0: Unnamed: 0
+1: Mã tin
+2: Ngày đăng
+3: Ngày hết hạn
+4: Loại tin
+5: Loại quảng cáo
+6: Loại BĐS
+7: Tỉnh thành phố
+8: Quận
+9: Địa chỉ 1
+10: Địa chỉ 2
+11: Khoảng giá
+12: Diện tích
+13: Link dự án
+14: Tên dự án
+15: Tiêu đề
+16: Mô tả
+17: Số tầng lookup
+18: Số tầng
+19: Căn góc
+20: Ngày gia hạn
+21: Số phòng ngủ
+22: Số phòng tắm - vệ sinh
+23: Hướng nhà
+24: Hướng ban công
+25: Mặt tiền
+26: Đường vào
+27: Pháp lý
+28: Nội thất
+29: Thời gian dự kiến vào ở
+30: Mức giá nước
+31: Mức giá internet
+32: Tiện ích
+33: Mức giá điện
+34: Phường Xã Thị trấn
+35: Tọa độ x
+36: Tọa độ y
+
+Unique values in 'Loại BĐS' (first 2000 rows):
+['căn hộ chung cư', 'đất', 'shophouse, nhà phố thương mại', 'nhà mặt phố', 'kho, nhà xưởng', 'kho, nhà xưởng, đất', 'trang trại, khu nghỉ dưỡng', 'cửa hàng, ki ốt', 'chung cư mini, căn hộ dịch vụ', 'văn phòng', 'nhà biệt thự, liền kề', 'nhà riêng', 'đất nền dự án', 'nhà trọ, phòng trọ', 'condotel']
+Unique values in 'Tỉnh thành phố' (first 2000 rows):
+['Hải Phòng', 'Bình Định', 'Hà Nội', 'Đồng Nai', 'Đắk Lắk', 'Bà Rịa Vũng Tàu', 'Bình Dương', 'Hồ Chí Minh', 'Cần Thơ', 'Vĩnh Phúc', 'Lâm Đồng', 'Bình Thuận', 'Bắc Giang', 'Bắc Ninh', 'Tây Ninh', 'Long An', 'Khánh Hòa', 'Hòa Bình', 'Bến Tre', 'Hải Dương', 'Bình Phước', 'Gia Lai']

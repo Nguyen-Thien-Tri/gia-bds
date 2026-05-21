@@ -1,0 +1,42 @@
+Column names and indices:
+0: Unnamed: 0
+1: Mã tin
+2: Ngày đăng
+3: Ngày hết hạn
+4: Loại tin
+5: Loại quảng cáo
+6: Loại BĐS
+7: Tỉnh thành phố
+8: Quận
+9: Địa chỉ 1
+10: Địa chỉ 2
+11: Khoảng giá
+12: Diện tích
+13: Link dự án
+14: Tên dự án
+15: Tiêu đề
+16: Mô tả
+17: Số tầng lookup
+18: Số tầng
+19: Căn góc
+20: Ngày gia hạn
+21: Số phòng ngủ
+22: Số phòng tắm - vệ sinh
+23: Hướng nhà
+24: Hướng ban công
+25: Mặt tiền
+26: Đường vào
+27: Pháp lý
+28: Nội thất
+29: Thời gian dự kiến vào ở
+30: Mức giá nước
+31: Mức giá internet
+32: Tiện ích
+33: Mức giá điện
+34: Phường Xã Thị trấn
+35: Tọa độ x
+36: Tọa độ y
+Found 'Hà Nội' in column: Tỉnh thành phố (Index: 7)
+Found 'Hà Nội' in column: Địa chỉ 1 (Index: 9)
+Found 'Hà Nội' in column: Địa chỉ 2 (Index: 10)
+Found 'Hà Nội' in column: Tên dự án (Index: 14)

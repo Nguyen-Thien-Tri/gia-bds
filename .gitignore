@@ -1,12 +1,59 @@
-# Exclude specific files
-Feature list.txt
-Collecting ads data/Misc.py
-Collecting ads data/real-estate-project-445516-83dc50b692bc.json
-Collecting ads data/scraped_links.csv
-Fabric/Lakehouse Files/ads_data_2025_11(1).csv
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Exclude specific folders and their contents
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Firebase
+.firebase/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
 venv/
-.idea/
-Collecting advertiser data/Data/
-Collecting ads data/ads_data/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Large ML Models & Data (> 50MB)
+House Price Prediction/*.joblib
+House Price Prediction/*.csv
+House Price Prediction/catboost_info/

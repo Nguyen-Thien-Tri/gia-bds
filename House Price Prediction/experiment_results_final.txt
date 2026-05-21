@@ -1,0 +1,2 @@
+Best MAPE: 14.77%
+Best Params: {'learning_rate': 0.0739355727333417, 'max_depth': 13, 'subsample': 0.8325620193025985, 'colsample_bytree': 0.7678725455393576, 'gamma': 0.0005964281855211917}

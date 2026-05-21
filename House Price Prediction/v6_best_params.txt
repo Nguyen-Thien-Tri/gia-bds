@@ -1,0 +1,4 @@
+XGB best: {'n_estimators': 4718, 'learning_rate': 0.010057723981723936, 'max_depth': 16, 'subsample': 0.8775257276834236, 'colsample_bytree': 0.8451720312418587, 'min_child_weight': 4, 'tree_method': 'hist'}
+LGB best: {'n_estimators': 4632, 'learning_rate': 0.02652387261193527, 'num_leaves': 444, 'subsample': 0.9357095126340655, 'colsample_bytree': 0.7109453287309475, 'min_child_samples': 8, 'verbose': -1}
+Best blend weight XGB=0.70, LGB=0.30
+FINAL MAPE: 12.10%

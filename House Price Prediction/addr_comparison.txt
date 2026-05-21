@@ -1,0 +1,201 @@
+Comparing Address 1 and Address 2:
+Row 0:
+  Addr 1: xã Tản Lĩnh
+  Addr 2: Bát Đầm, Xã Tản Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 1:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Gò Đình Muôn, Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 2:
+  Addr 1: xã Vân Hòa
+  Addr 2: Muồng Voi, Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 3:
+  Addr 1: xã Vân Hòa
+  Addr 2: Thôn Nghe, Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 4:
+  Addr 1: xã Ba Trại
+  Addr 2: Xã Ba Trại, Huyện Ba Vì, Hà Nội
+--------------------
+Row 5:
+  Addr 1: xã Ba Trại
+  Addr 2: Xã Ba Trại, Huyện Ba Vì, Hà Nội
+--------------------
+Row 6:
+  Addr 1: xã Ba Trại
+  Addr 2: Xã Ba Trại, Huyện Ba Vì, Hà Nội
+--------------------
+Row 7:
+  Addr 1: xã Ba Trại
+  Addr 2: Xã Ba Trại, Huyện Ba Vì, Hà Nội
+--------------------
+Row 8:
+  Addr 1: xã Cẩm Lĩnh
+  Addr 2: Xã Cẩm Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 9:
+  Addr 1: xã Cẩm Lĩnh
+  Addr 2: Xã Cẩm Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 10:
+  Addr 1: xã Cẩm Lĩnh
+  Addr 2: Xã Cẩm Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 11:
+  Addr 1: xã Cẩm Lĩnh
+  Addr 2: Xã Cẩm Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 12:
+  Addr 1: xã Cẩm Lĩnh
+  Addr 2: Xã Cẩm Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 13:
+  Addr 1: xã Cẩm Lĩnh
+  Addr 2: Xã Cẩm Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 14:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 15:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 16:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 17:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 18:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 19:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 20:
+  Addr 1: xã Khánh Thượng
+  Addr 2: Xã Khánh Thượng, Huyện Ba Vì, Hà Nội
+--------------------
+Row 21:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 22:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 23:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 24:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 25:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 26:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 27:
+  Addr 1: xã Minh Quang
+  Addr 2: Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 28:
+  Addr 1: xã Sơn Đà
+  Addr 2: Xã Sơn Đà, Huyện Ba Vì, Hà Nội
+--------------------
+Row 29:
+  Addr 1: xã Tản Lĩnh
+  Addr 2: Xã Tản Lĩnh, Huyện Ba Vì, Hà Nội
+--------------------
+Row 30:
+  Addr 1: xã Vân Hòa
+  Addr 2: Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 31:
+  Addr 1: xã Vân Hòa
+  Addr 2: Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 32:
+  Addr 1: xã Yên Bài
+  Addr 2: Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 33:
+  Addr 1: xã Yên Bài
+  Addr 2: Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 34:
+  Addr 1: xã Yên Bài
+  Addr 2: Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 35:
+  Addr 1: xã Yên Bài
+  Addr 2: Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 36:
+  Addr 1: xã Yên Bài
+  Addr 2: Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 37:
+  Addr 1: xã Thụy An
+  Addr 2: Đông Cao, Xã Thụy An, Huyện Ba Vì, Hà Nội
+--------------------
+Row 38:
+  Addr 1: đường 415
+  Addr 2: Đường 415, Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 39:
+  Addr 1: đường Quốc Lộ 414
+  Addr 2: Đường Quốc Lộ 414, Xã Minh Quang, Huyện Ba Vì, Hà Nội
+--------------------
+Row 40:
+  Addr 1: đường ĐT 87
+  Addr 2: Đường ĐT 87, Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 41:
+  Addr 1: đường ĐT 87
+  Addr 2: Đường ĐT 87, Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 42:
+  Addr 1: đường ĐT 87
+  Addr 2: Đường ĐT 87, Xã Vân Hòa, Huyện Ba Vì, Hà Nội
+--------------------
+Row 43:
+  Addr 1: đường ĐT 87
+  Addr 2: Đường ĐT 87, Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 44:
+  Addr 1: đường ĐT 87
+  Addr 2: Đường ĐT 87, Xã Yên Bài, Huyện Ba Vì, Hà Nội
+--------------------
+Row 45:
+  Addr 1: The Golden Armor
+  Addr 2: B6 giảng võ, The Golden Armor, Phố Nam Cao, Phường Giảng Võ, Quận Ba Đình, Hà Nội
+--------------------
+Row 46:
+  Addr 1: Discovery Central
+  Addr 2: Discovery Central, Đường Lê Trực, Phường Điện Biên, Quận Ba Đình, Hà Nội
+--------------------
+Row 47:
+  Addr 1: Grandeur Palace Giảng Võ
+  Addr 2: Grandeur Palace Giảng Võ, Phố Giảng Võ, Phường Kim Mã, Quận Ba Đình, Hà Nội
+--------------------
+Row 48:
+  Addr 1: Grandeur Palace Giảng Võ
+  Addr 2: Grandeur Palace Giảng Võ, Phố Giảng Võ, Phường Kim Mã, Quận Ba Đình, Hà Nội
+--------------------
+Row 49:
+  Addr 1: Grandeur Palace Giảng Võ
+  Addr 2: Grandeur Palace Giảng Võ, Phố Giảng Võ, Phường Kim Mã, Quận Ba Đình, Hà Nội
+--------------------
