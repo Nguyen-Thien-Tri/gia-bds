@@ -1,0 +1,37 @@
+- Giá của bds xung quanh
+- Phụ thuộc vào người bán, có gấp hay không
+- Phụ thuộc vào dân số, có đông hay không
+
+- vị trí
+- phong thủy
+- hình dạng 
+- căn góc
+- dịch vụ hoặc tiện ích ở nội khu
+- hạ tầng xung quanh (công viên, bệnh viện,...) và môi trường dân trí xung quanh
+- chủ đầu tư bds có uy tín hay không
+- diện tích đuợc xây dựng
+- chất lượng xây dựng 
+- Nhà dính quy hoach / lộ giới
+- Nhà nát
+- Đất chưa chuyển thổ
+- Diện tich đất
+- Diện tích sử dụng
+- Đất thổ cư
+- Đất nền dự án
+- Đất công nghiệp
+- Đất nông nghiệp
+- Chưa có thổ cư
+- Thổ cư 1 phần
+- Thổ cư toàn bộ
+- Không có thổ cư
+
+- view biển\gần biển = search "biển"
+- Căn góc => search "góc"
+- Hẻm xe hơi => search "xe hơi" or "ô tô" or "oto"
+- Hẻm xe hơi tránh => search "tránh"
+- Nhà nở hậu => search "nở hậu"
+- Gần công viên => search "công viên"
+- Gần siêu thị => search "siêu thị" or "mart"
+- Gần bệnh viện => search "bệnh viện" or "bv"
+- Gần trung tâm thương mại => search "trung tâm thương mại" or "tttm"
+- Có thang máy => search "thang máy"
