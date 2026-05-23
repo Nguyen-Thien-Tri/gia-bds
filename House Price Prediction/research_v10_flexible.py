@@ -91,6 +91,25 @@ def extract_features(df):
     df['feat_so_do'] = desc.str.contains('sổ đỏ|sổ hồng').astype(int)
     df['feat_chinh_chu'] = desc.str.contains('chính chủ').astype(int)
     
+    # Extended NLP Features
+    df['feat_view_nui'] = desc.str.contains('view núi|view đồi').astype(int)
+    df['feat_view_ho_song'] = desc.str.contains('view hồ|view sông|sát hồ|ven hồ').astype(int)
+    df['feat_view_canh_dong'] = desc.str.contains('view cánh đồng|cánh đồng').astype(int)
+    df['feat_khuon_vien'] = desc.str.contains('sẵn ao|vườn cây|cây ăn trái|nhà vườn').astype(int)
+    df['feat_nghi_duong'] = desc.str.contains('nghỉ dưỡng|homestay|farmstay|villa').astype(int)
+    df['feat_nha_xuong'] = desc.str.contains('nhà xưởng').astype(int)
+    df['feat_phan_lo'] = desc.str.contains('phân lô').astype(int)
+    df['feat_f0'] = desc.str.contains('f0|chưa qua đầu tư').astype(int)
+    df['feat_san_nha'] = desc.str.contains('sẵn nhà|nhà cấp 4|ở ngay').astype(int)
+    df['feat_duong_nhua'] = desc.str.contains('đường nhựa').astype(int)
+    df['feat_duong_betong'] = desc.str.contains('đường bê tông').astype(int)
+    df['feat_truc_chinh'] = desc.str.contains('trục chính|đường tỉnh|tỉnh lộ|quốc lộ|đường lớn').astype(int)
+    df['feat_phap_ly_chuan'] = desc.str.contains('sẵn sổ|sang tên luôn|pháp lý chuẩn').astype(int)
+    df['feat_du_lich'] = desc.str.contains('khu du lịch|resort').astype(int)
+    df['feat_truong_hoc'] = desc.str.contains('trường học').astype(int)
+    df['feat_cho'] = desc.str.contains('chợ').astype(int)
+    df['feat_nga_ba_tu'] = desc.str.contains('ngã 3|ngã 4|ngã tư').astype(int)
+    
     df['dist_to_metro'] = df.apply(lambda r: get_dist_to_metro(r['Tọa độ x'], r['Tọa độ y']), axis=1)
     df['dist_to_center'] = np.sqrt((df['Tọa độ x'] - CENTER_LAT)**2 + (df['Tọa độ y'] - CENTER_LON)**2)
     df['type_dist'] = df['Loại BĐS'].astype(str) + "_" + df['Quận'].astype(str)
@@ -114,6 +133,10 @@ ALL_FEATURES = ['Loại BĐS', 'Quận', 'Phường Xã Thị trấn', 'Địa c
                 'type_dist', 'loc_cluster',
                 'feat_oto', 'feat_tranh', 'feat_no_hau', 'feat_thang_may',
                 'feat_noi_that', 'feat_so_do', 'feat_chinh_chu',
+                'feat_view_nui', 'feat_view_ho_song', 'feat_view_canh_dong', 'feat_khuon_vien',
+                'feat_nghi_duong', 'feat_nha_xuong', 'feat_phan_lo', 'feat_f0', 'feat_san_nha',
+                'feat_duong_nhua', 'feat_duong_betong', 'feat_truc_chinh', 'feat_phap_ly_chuan',
+                'feat_du_lich', 'feat_truong_hoc', 'feat_cho', 'feat_nga_ba_tu',
                 'dien_tich_per_tang', 'mat_tien_x_tang']
 CATEGORICAL = ['Loại BĐS', 'Quận', 'Phường Xã Thị trấn', 'Địa chỉ 1', 'Hướng nhà', 'Hướng ban công', 'Pháp lý', 'Nội thất', 'type_dist', 'loc_cluster']
 

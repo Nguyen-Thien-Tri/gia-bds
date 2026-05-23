@@ -35,3 +35,23 @@
 - Gần bệnh viện => search "bệnh viện" or "bv"
 - Gần trung tâm thương mại => search "trung tâm thương mại" or "tttm"
 - Có thang máy => search "thang máy"
+
+
+Các đặc trưng NLP mới bổ sung:
+- View núi/đồi => search "view núi" or "view đồi"
+- View hồ/sông => search "view hồ" or "view sông" or "sát hồ" or "ven hồ"
+- View cánh đồng => search "view cánh đồng" or "cánh đồng"
+- Cảnh quan sinh thái => search "sẵn ao" or "vườn cây" or "cây ăn trái" or "nhà vườn"
+- Tiềm năng nghỉ dưỡng => search "nghỉ dưỡng" or "homestay" or "farmstay" or "villa"
+- Khai thác kinh doanh => search "nhà xưởng"
+- Phân lô => search "phân lô"
+- F0 / Chưa qua đầu tư => search "f0" or "chưa qua đầu tư"
+- Sẵn nhà / Cấp 4 => search "sẵn nhà" or "nhà cấp 4" or "ở ngay"
+- Đường nhựa => search "đường nhựa"
+- Đường bê tông => search "đường bê tông"
+- Trục chính / Tỉnh lộ => search "trục chính" or "đường tỉnh" or "tỉnh lộ" or "quốc lộ" or "đường lớn"
+- Pháp lý chuẩn => search "sẵn sổ" or "sang tên luôn" or "pháp lý chuẩn"
+- Khu du lịch => search "khu du lịch" or "resort"
+- Gần trường học => search "trường học"
+- Gần chợ => search "chợ"
+- Ngã ba / Ngã tư => search "ngã 3" or "ngã 4" or "ngã tư"
