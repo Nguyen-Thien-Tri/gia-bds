@@ -1,0 +1,81 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Notebook2",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "policy": {
+          "timeout": "12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureOutput": false,
+          "secureInput": false
+        },
+        "typeProperties": {
+          "notebookId": "a8b226b0-17a8-4dc9-869e-4c54c781b55c",
+          "workspaceId": "4680fd46-49c4-4cd4-8661-8e852e202558"
+        }
+      },
+      {
+        "name": "Success mail 2",
+        "type": "Office365Outlook",
+        "dependsOn": [
+          {
+            "activity": "Notebook2",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "inputs": {
+            "method": "post",
+            "path": "/v2/Mail",
+            "body": {
+              "To": "tringuyen.uit@gmail.com",
+              "Subject": "BigQuery to Firestore success 2",
+              "Body": "<p>Success</p>",
+              "Sensitivity": "",
+              "Importance": "Normal"
+            }
+          }
+        }
+      },
+      {
+        "name": "Failure mail 2",
+        "type": "Office365Outlook",
+        "dependsOn": [
+          {
+            "activity": "Notebook2",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "inputs": {
+            "method": "post",
+            "path": "/v2/Mail",
+            "body": {
+              "To": "tringuyen.uit@gmail.com",
+              "Subject": "BigQuery to Firestore fail 2",
+              "Body": "<p>Fail</p>",
+              "Sensitivity": "",
+              "Importance": "Normal"
+            }
+          }
+        }
+      }
+    ],
+    "logicAppsConnectionPayload": {
+      "id": "/subscriptions/6f1dd782-33ae-4df0-bac4-68a77fc9e1ef/resourceGroups/connections-4680fd46-49c4-4cd4-8661-8e852e202558/providers/Microsoft.Web/connections/1_45b1a4d9-e178-4f92-8fcc-4b7423f8d02c_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
+      "properties": {
+        "api": {
+          "name": "office365",
+          "id": "/subscriptions/6f1dd782-33ae-4df0-bac4-68a77fc9e1ef/providers/Microsoft.Web/locations/southeastasia/managedApis/office365"
+        }
+      }
+    }
+  }
+}

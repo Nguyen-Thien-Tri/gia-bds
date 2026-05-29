@@ -1,0 +1,113 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/schedules/1.0.0/schema.json",
+  "schedules": [
+    {
+      "enabled": false,
+      "jobType": "Execute",
+      "configuration": {
+        "type": "Monthly",
+        "startDateTime": "2026-01-07T00:00:00",
+        "endDateTime": "2030-07-06T23:59:00",
+        "localTimeZoneId": "SE Asia Standard Time",
+        "times": [
+          "22:00"
+        ],
+        "recurrence": 1,
+        "occurrence": {
+          "occurrenceType": "DayOfMonth",
+          "dayOfMonth": 14
+        }
+      }
+    },
+    {
+      "enabled": false,
+      "jobType": "Execute",
+      "configuration": {
+        "type": "Monthly",
+        "startDateTime": "2026-01-07T00:00:00",
+        "endDateTime": "2030-07-07T23:59:00",
+        "localTimeZoneId": "SE Asia Standard Time",
+        "times": [
+          "22:00"
+        ],
+        "recurrence": 1,
+        "occurrence": {
+          "occurrenceType": "DayOfMonth",
+          "dayOfMonth": 15
+        }
+      }
+    },
+    {
+      "enabled": false,
+      "jobType": "Execute",
+      "configuration": {
+        "type": "Monthly",
+        "startDateTime": "2026-01-07T00:00:00",
+        "endDateTime": "2030-07-07T23:59:00",
+        "localTimeZoneId": "SE Asia Standard Time",
+        "times": [
+          "22:00"
+        ],
+        "recurrence": 1,
+        "occurrence": {
+          "occurrenceType": "DayOfMonth",
+          "dayOfMonth": 22
+        }
+      }
+    },
+    {
+      "enabled": false,
+      "jobType": "Execute",
+      "configuration": {
+        "type": "Monthly",
+        "startDateTime": "2026-01-07T00:00:00",
+        "endDateTime": "2030-07-07T23:59:00",
+        "localTimeZoneId": "SE Asia Standard Time",
+        "times": [
+          "22:00"
+        ],
+        "recurrence": 1,
+        "occurrence": {
+          "occurrenceType": "DayOfMonth",
+          "dayOfMonth": 28
+        }
+      }
+    },
+    {
+      "enabled": false,
+      "jobType": "Execute",
+      "configuration": {
+        "type": "Monthly",
+        "startDateTime": "2026-01-07T00:00:00",
+        "endDateTime": "2030-07-07T23:59:00",
+        "localTimeZoneId": "SE Asia Standard Time",
+        "times": [
+          "22:00"
+        ],
+        "recurrence": 1,
+        "occurrence": {
+          "occurrenceType": "DayOfMonth",
+          "dayOfMonth": 1
+        }
+      }
+    },
+    {
+      "enabled": false,
+      "jobType": "Execute",
+      "configuration": {
+        "type": "Monthly",
+        "startDateTime": "2026-01-07T00:00:00",
+        "endDateTime": "2030-07-07T23:59:00",
+        "localTimeZoneId": "SE Asia Standard Time",
+        "times": [
+          "22:00"
+        ],
+        "recurrence": 1,
+        "occurrence": {
+          "occurrenceType": "DayOfMonth",
+          "dayOfMonth": 31
+        }
+      }
+    }
+  ]
+}
