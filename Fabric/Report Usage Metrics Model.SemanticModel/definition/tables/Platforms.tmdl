@@ -1,0 +1,15 @@
+table Platforms
+
+	column Name
+		dataType: string
+		sourceProviderType: nvarchar
+		sourceColumn: ClientType
+
+	partition Usage_ClientTypes = query
+		dataView: full
+		source
+			query =
+				SELECT [Viewers].[Usage_ClientTypes].*
+				FROM [Viewers].[Usage_ClientTypes]
+			dataSource: bd7c0be5-4f36-44e9-bc91-20679d41615b
+

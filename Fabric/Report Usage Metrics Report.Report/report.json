@@ -1,0 +1,127 @@
+{
+  "config": "{\"version\":\"2.4\",\"activeSectionIndex\":0}",
+  "layoutOptimization": 0,
+  "pods": [
+    {
+      "boundSection": "ReportSection",
+      "name": "Pod"
+    }
+  ],
+  "resourcePackages": [],
+  "sections": [
+    {
+      "config": "{\"objects\":{\"background\":[{\"properties\":{\"color\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#fafafa'\"}}}}}}}]}}",
+      "displayName": "Usage Report",
+      "displayOption": 1,
+      "height": 720.00,
+      "name": "ReportSection",
+      "visualContainers": [
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":1024,\"y\":232,\"z\":6,\"width\":120,\"height\":64}}],\"singleVisual\":{\"title\":{\"show\":true,\"text\":\"Total views rank\",\"fontSize\":\"10\",\"fontColor\":\"#000000\",\"alignment\":\"center\"},\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(ViewsRanking.ViewsRank)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"r\",\"Entity\":\"ViewsRanking\"}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"ViewsRank\"}},\"Function\":6},\"Name\":\"Sum(ViewsRanking.ViewsRank)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"r\"}},\"Property\":\"ViewsRank\"}},\"Function\":0}}}]},\"objects\":{\"categoryLabels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'22'\"}}}}}]}},\"name\":\"VisualContainer12\"}",
+          "height": 64.00,
+          "width": 120.00,
+          "x": 1024.00,
+          "y": 232.00,
+          "z": 6.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":1094,\"y\":64,\"z\":6,\"width\":120,\"height\":64}}],\"singleVisual\":{\"title\":{\"show\":true,\"text\":\"Total viewers\",\"fontSize\":\"10\",\"fontColor\":\"#000000\",\"alignment\":\"center\"},\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Views.ViewersCount\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Views\"}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewersCount\"},\"Name\":\"Views.ViewersCount\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewersCount\"}}}]},\"objects\":{\"categoryLabels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'22'\"}}}}}]}},\"name\":\"VisualContainer7\"}",
+          "height": 64.00,
+          "width": 120.00,
+          "x": 1094.00,
+          "y": 64.00,
+          "z": 6.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":32,\"y\":192,\"z\":3,\"width\":352,\"height\":120}}],\"singleVisual\":{\"title\":{\"text\":\"Distribution methods\",\"show\":true,\"fontSize\":\"14\",\"fontColor\":\"#000000\"},\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"DistributionMethods.Name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"DistributionMethods\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Name\"},\"Name\":\"DistributionMethods.Name\"}]},\"objects\":{\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"general\":[{\"properties\":{}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}}}}],\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}]}},\"name\":\"VisualContainer4\"}",
+          "height": 120.00,
+          "width": 352.00,
+          "x": 32.00,
+          "y": 192.00,
+          "z": 3.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":32,\"y\":392,\"z\":2,\"width\":352,\"height\":120}}],\"singleVisual\":{\"title\":{\"text\":\"Platforms\",\"show\":true,\"fontSize\":\"14\",\"fontColor\":\"#000000\"},\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Platforms.Name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"p\",\"Entity\":\"Platforms\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"p\"}},\"Property\":\"Name\"},\"Name\":\"Platforms.Name\"}]},\"objects\":{\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}}}}],\"general\":[{\"properties\":{}}],\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}]}},\"name\":\"VisualContainer5\"}",
+          "height": 120.00,
+          "width": 352.00,
+          "x": 32.00,
+          "y": 392.00,
+          "z": 2.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":32,\"y\":40,\"z\":12,\"width\":328,\"height\":176}}],\"singleVisual\":{\"visualType\":\"textbox\",\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Report Usage Metrics\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Segoe UI\",\"fontSize\":\"20px\"}}]},{\"textRuns\":[{\"value\":\"This report is automatically generated by Power BI to provide usage metrics for your report. Usage data is retained for the last 90 days. Changes to your report may take up to 24 hours to appear here. \",\"textStyle\":{\"fontFamily\":\"Segoe UI\"}},{\"value\":\"Learn more\",\"textStyle\":{\"fontFamily\":\"Segoe UI\"},\"url\":\"https://go.microsoft.com/fwlink/?linkid=846411\"}]}]}}]}},\"name\":\"VisualContainer1\"}",
+          "height": 176.00,
+          "width": 328.00,
+          "x": 32.00,
+          "y": 40.00,
+          "z": 12.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":32,\"y\":512,\"z\":2,\"width\":352,\"height\":120}}],\"singleVisual\":{\"title\":{\"text\":\"Report page\",\"show\":true,\"fontSize\":\"14\",\"fontColor\":\"#000000\"},\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"Views.ReportPage\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Views\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ReportPage\"},\"Name\":\"Views.ReportPage\"}]},\"objects\":{\"selection\":[{\"properties\":{\"selectAllCheckboxEnabled\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"singleSelect\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"items\":[{\"properties\":{\"textSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}}}}],\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"general\":[{\"properties\":{}}]}},\"name\":\"VisualContainer10\"}",
+          "height": 120.00,
+          "width": 352.00,
+          "x": 32.00,
+          "y": 512.00,
+          "z": 2.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":384,\"y\":264,\"z\":3,\"width\":496,\"height\":200}}],\"singleVisual\":{\"title\":{\"text\":\"Unique viewers per day\",\"show\":true,\"fontSize\":\"14\",\"fontColor\":\"#000000\"},\"visualType\":\"columnChart\",\"projections\":{\"Y\":[{\"queryRef\":\"Views.ViewersCount\"}],\"Category\":[{\"queryRef\":\"Views.Date\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Views\"}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewersCount\"},\"Name\":\"Views.ViewersCount\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"Date\"},\"Name\":\"Views.Date\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewersCount\"}}}]},\"objects\":{\"categoryAxis\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}],\"dataPoint\":[{\"properties\":{\"defaultColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#f2c811'\"}}}}}}}],\"valueAxis\":[{\"properties\":{\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}},\"name\":\"VisualContainer2\"}",
+          "height": 200.00,
+          "width": 496.00,
+          "x": 384.00,
+          "y": 264.00,
+          "z": 3.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":384,\"y\":40,\"z\":3,\"width\":496,\"height\":200}}],\"singleVisual\":{\"title\":{\"text\":\"Views per day\",\"show\":true,\"fontSize\":\"14\",\"fontColor\":\"#000000\"},\"border\":{\"show\":false},\"visualType\":\"columnChart\",\"projections\":{\"Y\":[{\"queryRef\":\"Views.ViewsCount\"}],\"Category\":[{\"queryRef\":\"Views.Date\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Views\"}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewsCount\"},\"Name\":\"Views.ViewsCount\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"Date\"},\"Name\":\"Views.Date\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewsCount\"}}}]},\"objects\":{\"labels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"categoryAxis\":[{\"properties\":{\"axisType\":{\"expr\":{\"Literal\":{\"Value\":\"'Scalar'\"}}},\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}],\"dataPoint\":[{\"properties\":{\"defaultColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#f2c811'\"}}}}}}}],\"valueAxis\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"position\":{\"expr\":{\"Literal\":{\"Value\":\"'Left'\"}}},\"labelDisplayUnits\":{\"expr\":{\"Literal\":{\"Value\":\"0D\"}}}}}]}},\"name\":\"VisualContainer3\"}",
+          "height": 200.00,
+          "width": 496.00,
+          "x": 384.00,
+          "y": 40.00,
+          "z": 3.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":41,\"y\":287,\"width\":320,\"height\":80,\"z\":12}}],\"singleVisual\":{\"visualType\":\"textbox\",\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"The Distribution\",\"textStyle\":{\"fontFamily\":\"Segoe UI\"}},{\"value\":\" \",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Segoe UI\"}},{\"value\":\"Method slicer allows you to slice based on how the user obtained access to this report. \",\"textStyle\":{\"fontFamily\":\"Segoe UI\"}},{\"value\":\"Learn more\",\"textStyle\":{\"fontFamily\":\"Segoe UI\"},\"url\":\"https://go.microsoft.com/fwlink/?linkid=846411\"}]}]}}]}},\"name\":\"VisualContainer8\"}",
+          "height": 80.00,
+          "width": 320.00,
+          "x": 41.00,
+          "y": 287.00,
+          "z": 12.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":904,\"y\":148,\"width\":361,\"height\":70,\"z\":12}}],\"singleVisual\":{\"visualType\":\"textbox\",\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Rank \",\"textStyle\":{\"fontWeight\":\"bold\",\"fontFamily\":\"Segoe UI\"}},{\"value\":\"is calculated by comparing this report against other reports in your organization. \",\"textStyle\":{\"fontFamily\":\"Segoe UI\"}},{\"value\":\"Learn more\",\"textStyle\":{\"fontFamily\":\"Segoe UI\"},\"url\":\"https://go.microsoft.com/fwlink/?linkid=846411\"}]}]}}]}},\"name\":\"VisualContainer9\"}",
+          "height": 70.00,
+          "width": 361.00,
+          "x": 904.00,
+          "y": 148.00,
+          "z": 12.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":954,\"y\":64,\"z\":6,\"width\":120,\"height\":64}}],\"singleVisual\":{\"title\":{\"show\":true,\"text\":\"Total views\",\"fontSize\":\"10\",\"fontColor\":\"#000000\",\"alignment\":\"center\"},\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Views.ViewsCount\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"v\",\"Entity\":\"Views\"}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewsCount\"},\"Name\":\"Views.ViewsCount\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewsCount\"}}}]},\"objects\":{\"categoryLabels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'22'\"}}}}}]}},\"name\":\"VisualContainer6\"}",
+          "height": 64.00,
+          "width": 120.00,
+          "x": 954.00,
+          "y": 64.00,
+          "z": 6.00
+        },
+        {
+          "config": "{\"layouts\":[{\"id\":0,\"position\":{\"x\":964,\"y\":316,\"z\":6,\"width\":240,\"height\":48}}],\"singleVisual\":{\"title\":{\"show\":true,\"text\":\"Total Reports in Organization\",\"fontSize\":\"9\",\"fontColor\":\"#999999\",\"alignment\":\"center\"},\"visualType\":\"card\",\"projections\":{\"Values\":[{\"queryRef\":\"Sum(ReportsCount.Total)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"ReportsCount\"}],\"Select\":[{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total\"}},\"Function\":0},\"Name\":\"Sum(ReportsCount.Total)\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total\"}},\"Function\":0}}}]},\"objects\":{\"categoryLabels\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}],\"labels\":[{\"properties\":{\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"'11'\"}}}}}]}},\"name\":\"VisualContainer11\"}",
+          "height": 48.00,
+          "width": 240.00,
+          "x": 964.00,
+          "y": 316.00,
+          "z": 6.00
+        },
+        {
+          "config": "{\"name\":\"VisualContainer13\",\"layouts\":[{\"id\":0,\"position\":{\"x\":904,\"y\":384,\"z\":13,\"width\":360,\"height\":280}}],\"singleVisual\":{\"title\":{\"show\":true,\"text\":\"Views by user\",\"fontColor\":\"#000000\",\"fontSize\":\"14\"},\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"Users.FamilyName\"},{\"queryRef\":\"Users.GivenName\"},{\"queryRef\":\"Users.UserPrincipalName\"},{\"queryRef\":\"Views.ViewsCount\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"u\",\"Entity\":\"Users\"},{\"Name\":\"v\",\"Entity\":\"Views\"}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"u\"}},\"Property\":\"FamilyName\"},\"Name\":\"Users.FamilyName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"u\"}},\"Property\":\"GivenName\"},\"Name\":\"Users.GivenName\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"u\"}},\"Property\":\"UserPrincipalName\"},\"Name\":\"Users.UserPrincipalName\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewsCount\"},\"Name\":\"Views.ViewsCount\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"v\"}},\"Property\":\"ViewsCount\"}}}]},\"columnProperties\":{\"Users.FamilyName\":{\"displayName\":\"Family Name\"},\"Users.GivenName\":{\"displayName\":\"Given Name\"},\"Users.UserPrincipalName\":{\"displayName\":\"User Principal Name\"},\"Views.ViewsCount\":{\"displayName\":\"Views\"}},\"objects\":{\"grid\":[{\"properties\":{\"outlineColor\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#F2C80F'\"}}}}}}}],\"values\":[{\"properties\":{\"backColorPrimary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#FFFFFF'\"}}}}},\"backColorSecondary\":{\"solid\":{\"color\":{\"expr\":{\"Literal\":{\"Value\":\"'#cccccc'\"}}}}}}}],\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "height": 280.00,
+          "width": 360.00,
+          "x": 904.00,
+          "y": 384.00,
+          "z": 13.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

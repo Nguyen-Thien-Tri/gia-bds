@@ -1,0 +1,37 @@
+table Users
+
+	column OwnerTenantGuid
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(36)
+		sourceColumn: OwnerTenantGuid
+
+	column UserGuid
+		dataType: string
+		sourceProviderType: varchar(36)
+		sourceColumn: UserGuid
+
+	column GivenName
+		dataType: string
+		sourceProviderType: nvarchar(200)
+		sourceColumn: GivenName
+
+	column FamilyName
+		dataType: string
+		sourceProviderType: nvarchar(200)
+		sourceColumn: FamilyName
+
+	column UserPrincipalName
+		dataType: string
+		sourceProviderType: nvarchar(256)
+		sourceColumn: UserPrincipalName
+
+	partition Usage_ReportUsers = query
+		dataView: full
+		source
+			query =
+				SELECT [Viewers].[Usage_ReportUsers].*
+				FROM [Viewers].[Usage_ReportUsers]
+				WHERE [Viewers].[Usage_ReportUsers].[OwnerTenantGuid] = '2dff09ac-2b3b-4182-9953-2b548e0d0b39'
+			dataSource: bd7c0be5-4f36-44e9-bc91-20679d41615b
+

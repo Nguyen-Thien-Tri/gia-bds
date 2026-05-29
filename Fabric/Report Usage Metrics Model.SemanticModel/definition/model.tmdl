@@ -1,0 +1,14 @@
+model Model
+	defaultMode: directQuery
+	culture: en-US
+
+ref table Dates
+ref table Reports
+ref table ReportsCount
+ref table Views
+ref table ViewsRanking
+ref table ViewersRanking
+ref table Platforms
+ref table DistributionMethods
+ref table Users
+

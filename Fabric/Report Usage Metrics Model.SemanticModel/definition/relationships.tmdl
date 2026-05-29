@@ -1,0 +1,32 @@
+relationship 43810166-de61-4850-9dd5-78141ad701f6
+	fromColumn: Views.Date
+	toColumn: Dates.Date
+
+relationship fe44c2e7-4900-44f4-81cf-1709e560b7d9
+	fromColumn: Views.ReportGuid
+	toColumn: Reports.ReportGuid
+
+relationship b99f3357-f784-468f-a51e-c6c03883f19f
+	fromColumn: Views.Platform
+	toColumn: Platforms.Name
+
+relationship 78c4a8d1-6a57-44a7-aebe-0e4ad81dccc8
+	fromColumn: Views.DistributionMethod
+	toColumn: DistributionMethods.Name
+
+relationship d94daea1-d800-49e5-bbac-4ea029fbbf55
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: ViewsRanking.ReportGuid
+	toColumn: Reports.ReportGuid
+
+relationship ad83ae67-f8fb-4e21-8379-6def48e5490c
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: ViewersRanking.ReportGuid
+	toColumn: Reports.ReportGuid
+
+relationship c4071e45-e66d-45cb-a754-196e383f0877
+	fromColumn: Views.UserGuid
+	toColumn: Users.UserGuid
+

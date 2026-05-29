@@ -1,0 +1,4 @@
+dataSource bd7c0be5-4f36-44e9-bc91-20679d41615b = provider
+	connectionString: Application Name=UserReportUsageMetrics;data source=@@DS;initial catalog=@@DB
+	impersonationMode: impersonateCurrentUser
+

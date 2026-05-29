@@ -1,0 +1,243 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "ForEach",
+        "type": "ForEach",
+        "dependsOn": [],
+        "typeProperties": {
+          "items": {
+            "value": "@range(1,5)",
+            "type": "Expression"
+          },
+          "isSequential": true,
+          "activities": [
+            {
+              "name": "If Condition",
+              "type": "IfCondition",
+              "dependsOn": [
+                {
+                  "activity": "Get CSV file Metadata",
+                  "dependencyConditions": [
+                    "Completed"
+                  ]
+                }
+              ],
+              "typeProperties": {
+                "expression": {
+                  "value": "@less(\n    formatDateTime(activity('Get CSV file Metadata').output.lastModified,'yyyy-MM-dd'),\n    formatDateTime(utcNow(),'yyyy-MM-dd')\n)",
+                  "type": "Expression"
+                },
+                "ifFalseActivities": [],
+                "ifTrueActivities": [
+                  {
+                    "name": "Notebook",
+                    "type": "TridentNotebook",
+                    "dependsOn": [],
+                    "policy": {
+                      "timeout": "12:00:00",
+                      "retry": 0,
+                      "retryIntervalInSeconds": 30,
+                      "secureOutput": false,
+                      "secureInput": false
+                    },
+                    "typeProperties": {
+                      "notebookId": "8cd0b150-7dd1-4009-8192-21a6cd4667b1",
+                      "workspaceId": "4680fd46-49c4-4cd4-8661-8e852e202558"
+                    }
+                  },
+                  {
+                    "name": "Success mail",
+                    "type": "Office365Outlook",
+                    "dependsOn": [
+                      {
+                        "activity": "Set success status",
+                        "dependencyConditions": [
+                          "Succeeded"
+                        ]
+                      }
+                    ],
+                    "typeProperties": {
+                      "inputs": {
+                        "method": "post",
+                        "path": "/v2/Mail",
+                        "body": {
+                          "To": "tringuyen.uit@gmail.com",
+                          "Subject": "Source to BigQuery success",
+                          "Body": "<p>Success</p>",
+                          "Sensitivity": "",
+                          "Importance": "Normal"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "Wait before the next retry",
+                    "type": "Wait",
+                    "dependsOn": [
+                      {
+                        "activity": "Set fail status",
+                        "dependencyConditions": [
+                          "Completed"
+                        ]
+                      }
+                    ],
+                    "typeProperties": {
+                      "waitTimeInSeconds": 60
+                    }
+                  },
+                  {
+                    "name": "Set fail status",
+                    "type": "SetVariable",
+                    "dependsOn": [
+                      {
+                        "activity": "Notebook",
+                        "dependencyConditions": [
+                          "Failed"
+                        ]
+                      }
+                    ],
+                    "policy": {
+                      "secureOutput": false,
+                      "secureInput": false
+                    },
+                    "typeProperties": {
+                      "variableName": "status",
+                      "value": "Failed"
+                    }
+                  },
+                  {
+                    "name": "Set success status",
+                    "type": "SetVariable",
+                    "dependsOn": [
+                      {
+                        "activity": "Notebook",
+                        "dependencyConditions": [
+                          "Succeeded"
+                        ]
+                      }
+                    ],
+                    "policy": {
+                      "secureOutput": false,
+                      "secureInput": false
+                    },
+                    "typeProperties": {
+                      "variableName": "status",
+                      "value": "Succeed"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "Get CSV file Metadata",
+              "type": "GetMetadata",
+              "dependsOn": [],
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureOutput": false,
+                "secureInput": false
+              },
+              "typeProperties": {
+                "fieldList": [
+                  "lastModified"
+                ],
+                "datasetSettings": {
+                  "annotations": [],
+                  "linkedService": {
+                    "name": "Lakehouse",
+                    "properties": {
+                      "annotations": [],
+                      "type": "Lakehouse",
+                      "typeProperties": {
+                        "workspaceId": "4680fd46-49c4-4cd4-8661-8e852e202558",
+                        "artifactId": "ba1d99e1-259f-47b7-9bae-d8abf1875004",
+                        "rootFolder": "Files"
+                      }
+                    }
+                  },
+                  "type": "DelimitedText",
+                  "typeProperties": {
+                    "location": {
+                      "type": "LakehouseLocation",
+                      "fileName": "scraped_links.csv",
+                      "folderPath": "ads_data"
+                    },
+                    "columnDelimiter": ",",
+                    "escapeChar": "\\",
+                    "firstRowAsHeader": true,
+                    "quoteChar": "\""
+                  },
+                  "schema": []
+                },
+                "storeSettings": {
+                  "type": "AzureBlobStorageReadSettings",
+                  "recursive": true,
+                  "enablePartitionDiscovery": false
+                },
+                "formatSettings": {
+                  "type": "DelimitedTextReadSettings"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "If failed",
+        "type": "IfCondition",
+        "dependsOn": [
+          {
+            "activity": "ForEach",
+            "dependencyConditions": [
+              "Completed"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "expression": {
+            "value": "@equals(variables('status'), 'Failed')",
+            "type": "Expression"
+          },
+          "ifFalseActivities": [],
+          "ifTrueActivities": [
+            {
+              "name": "Failure mail",
+              "type": "Office365Outlook",
+              "dependsOn": [],
+              "typeProperties": {
+                "inputs": {
+                  "method": "post",
+                  "path": "/v2/Mail",
+                  "body": {
+                    "To": "tringuyen.uit@gmail.com",
+                    "Subject": "Source to BigQuery fail",
+                    "Body": "<p>Fail</p>",
+                    "Sensitivity": "",
+                    "Importance": "Normal"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "variables": {
+      "status": {
+        "type": "String"
+      }
+    },
+    "logicAppsConnectionPayload": {
+      "id": "/subscriptions/c21ff25a-2665-4aa3-8f99-6235af7cb048/resourceGroups/connections-4680fd46-49c4-4cd4-8661-8e852e202558/providers/Microsoft.Web/connections/1_72b47f22-4253-4a11-ad8a-bebdc5e15aa0_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
+      "properties": {
+        "api": {
+          "name": "office365",
+          "id": "/subscriptions/c21ff25a-2665-4aa3-8f99-6235af7cb048/providers/Microsoft.Web/locations/southeastasia/managedApis/office365"
+        }
+      }
+    }
+  }
+}

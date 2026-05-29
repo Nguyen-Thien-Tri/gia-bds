@@ -1,0 +1,74 @@
+table Views
+
+	measure ViewersCount = DISTINCTCOUNT([UserGuid])
+		formatString: 0
+
+	measure ViewsCount = SUM([GranularViewsCount])
+		formatString: 0
+
+	column Date
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: FullDate
+
+		annotation Format = <Format Format="DateTimeCustom"><DateTimes><DateTime LCID="1033" Group="ShortDate" FormatString="yyyy-MM-dd" /></DateTimes></Format>
+
+	column OwnerTenantGuid
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(36)
+		sourceColumn: OwnerTenantGuid
+
+	column OwnerUserGuid
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(36)
+		sourceColumn: OwnerUserGuid
+
+	column OwnerGroupGuid
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(36)
+		sourceColumn: OwnerGroupGuid
+
+	column ReportGuid
+		dataType: string
+		sourceProviderType: varchar(36)
+		sourceColumn: ReportGuid
+
+	column Platform
+		dataType: string
+		sourceProviderType: nvarchar
+		sourceColumn: ClientType
+
+	column DistributionMethod
+		dataType: string
+		sourceProviderType: nvarchar
+		sourceColumn: DistributionMethod
+
+	column UserGuid
+		dataType: string
+		isHidden
+		sourceProviderType: varchar(36)
+		sourceColumn: UserGuid
+
+	column ReportPage
+		dataType: string
+		sourceProviderType: nvarchar
+		sourceColumn: ReportPage
+
+	column GranularViewsCount
+		dataType: int64
+		isHidden
+		sourceProviderType: bigint
+		sourceColumn: ViewsCount
+
+	partition Usage_ReportViews_V2 = query
+		dataView: full
+		source
+			query =
+				SELECT [Viewers].[Usage_ReportViews_V2].*
+				FROM [Viewers].[Usage_ReportViews_V2]
+				WHERE [Viewers].[Usage_ReportViews_V2].[OwnerTenantGuid] = '2dff09ac-2b3b-4182-9953-2b548e0d0b39' AND ([Viewers].[Usage_ReportViews_V2].[OwnerGroupGuid] = '4680fd46-49c4-4cd4-8661-8e852e202558' OR [Viewers].[Usage_ReportViews_V2].[OwnerUserGuid] = '')
+			dataSource: bd7c0be5-4f36-44e9-bc91-20679d41615b
+
