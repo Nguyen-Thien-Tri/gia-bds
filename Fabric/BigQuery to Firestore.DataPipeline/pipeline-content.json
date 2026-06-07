@@ -13,8 +13,8 @@
           "secureInput": false
         },
         "typeProperties": {
-          "notebookId": "a8b226b0-17a8-4dc9-869e-4c54c781b55c",
-          "workspaceId": "4680fd46-49c4-4cd4-8661-8e852e202558"
+          "notebookId": "14d71ce5-73bf-4a6f-8aab-b1e347b02fe1",
+          "workspaceId": "9a2e0242-f493-45f6-996a-79356568d242"
         }
       },
       {
@@ -34,7 +34,7 @@
             "path": "/v2/Mail",
             "body": {
               "To": "tringuyen.uit@gmail.com",
-              "Subject": "BigQuery to Firestore success 2",
+              "Subject": "BigQuery to Firestore success",
               "Body": "<p>Success</p>",
               "Sensitivity": "",
               "Importance": "Normal"
@@ -59,7 +59,7 @@
             "path": "/v2/Mail",
             "body": {
               "To": "tringuyen.uit@gmail.com",
-              "Subject": "BigQuery to Firestore fail 2",
+              "Subject": "BigQuery to Firestore fail",
               "Body": "<p>Fail</p>",
               "Sensitivity": "",
               "Importance": "Normal"
@@ -69,11 +69,11 @@
       }
     ],
     "logicAppsConnectionPayload": {
-      "id": "/subscriptions/6f1dd782-33ae-4df0-bac4-68a77fc9e1ef/resourceGroups/connections-4680fd46-49c4-4cd4-8661-8e852e202558/providers/Microsoft.Web/connections/1_45b1a4d9-e178-4f92-8fcc-4b7423f8d02c_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
+      "id": "/subscriptions/21a65d72-f28d-43d4-80e7-d04e41ec025c/resourceGroups/connections-9a2e0242-f493-45f6-996a-79356568d242/providers/Microsoft.Web/connections/1_d4dab9ae-a2e1-487f-9937-82c021be23fb_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
       "properties": {
         "api": {
           "name": "office365",
-          "id": "/subscriptions/6f1dd782-33ae-4df0-bac4-68a77fc9e1ef/providers/Microsoft.Web/locations/southeastasia/managedApis/office365"
+          "id": "/subscriptions/21a65d72-f28d-43d4-80e7-d04e41ec025c/providers/Microsoft.Web/locations/southeastasia/managedApis/office365"
         }
       }
     }
