@@ -42,8 +42,8 @@
                       "secureInput": false
                     },
                     "typeProperties": {
-                      "notebookId": "8cd0b150-7dd1-4009-8192-21a6cd4667b1",
-                      "workspaceId": "4680fd46-49c4-4cd4-8661-8e852e202558"
+                      "notebookId": "dbc2f955-2918-4def-b9e4-e7c984a36690",
+                      "workspaceId": "9a2e0242-f493-45f6-996a-79356568d242"
                     }
                   },
                   {
@@ -152,8 +152,8 @@
                       "annotations": [],
                       "type": "Lakehouse",
                       "typeProperties": {
-                        "workspaceId": "4680fd46-49c4-4cd4-8661-8e852e202558",
-                        "artifactId": "ba1d99e1-259f-47b7-9bae-d8abf1875004",
+                        "workspaceId": "9a2e0242-f493-45f6-996a-79356568d242",
+                        "artifactId": "03b27f6d-2dfb-49fd-b48b-25031c43fdfe",
                         "rootFolder": "Files"
                       }
                     }
@@ -231,7 +231,7 @@
       }
     },
     "logicAppsConnectionPayload": {
-      "id": "/subscriptions/c21ff25a-2665-4aa3-8f99-6235af7cb048/resourceGroups/connections-4680fd46-49c4-4cd4-8661-8e852e202558/providers/Microsoft.Web/connections/1_72b47f22-4253-4a11-ad8a-bebdc5e15aa0_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
+      "id": "/subscriptions/c21ff25a-2665-4aa3-8f99-6235af7cb048/resourceGroups/connections-9a2e0242-f493-45f6-996a-79356568d242/providers/Microsoft.Web/connections/1_aa1e95d2-07e2-455a-8a1e-4153e939b957_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
       "properties": {
         "api": {
           "name": "office365",

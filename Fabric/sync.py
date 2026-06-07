@@ -5,7 +5,7 @@ import json
 import base64
 import time
 
-WORKSPACE_ID = "4680fd46-49c4-4cd4-8661-8e852e202558"
+WORKSPACE_ID = "9a2e0242-f493-45f6-996a-79356568d242"
 BASE_DIR = r"c:\My projects\Real-estate-website-project\Fabric"
 
 def remove_readonly(func, path, excinfo):
