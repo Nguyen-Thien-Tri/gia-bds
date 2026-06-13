@@ -13,8 +13,8 @@
           "secureInput": false
         },
         "typeProperties": {
-          "notebookId": "14d71ce5-73bf-4a6f-8aab-b1e347b02fe1",
-          "workspaceId": "9a2e0242-f493-45f6-996a-79356568d242"
+          "notebookId": "3d37ffaf-cb04-4df1-a636-fc7a754dac3a",
+          "workspaceId": "949b0a74-d905-4e10-b5c7-7d27c08a8165"
         }
       },
       {
@@ -69,7 +69,7 @@
       }
     ],
     "logicAppsConnectionPayload": {
-      "id": "/subscriptions/21a65d72-f28d-43d4-80e7-d04e41ec025c/resourceGroups/connections-9a2e0242-f493-45f6-996a-79356568d242/providers/Microsoft.Web/connections/1_d4dab9ae-a2e1-487f-9937-82c021be23fb_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
+      "id": "/subscriptions/21a65d72-f28d-43d4-80e7-d04e41ec025c/resourceGroups/connections-949b0a74-d905-4e10-b5c7-7d27c08a8165/providers/Microsoft.Web/connections/1_d4dab9ae-a2e1-487f-9937-82c021be23fb_5aeeca7e-6b43-4408-9e6e-5d0ff256d3ef",
       "properties": {
         "api": {
           "name": "office365",
