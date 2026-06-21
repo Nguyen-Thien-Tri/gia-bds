@@ -45,24 +45,134 @@ def clear_directory():
 
 # ─── Authentication ────────────────────────────────────────────────────────────
 
+MAX_LOGIN_RETRIES = 2
+
+
+def ensure_authenticated():
+    """
+    Check if the user is logged in to Azure CLI.
+    If not, run 'az login' to authenticate.
+    Returns True if authenticated, False otherwise.
+    """
+    result = subprocess.run(
+        "az account show",
+        capture_output=True, text=True, shell=True
+    )
+    if result.returncode != 0:
+        print("  Not logged in to Azure. Attempting login...")
+        for attempt in range(1, MAX_LOGIN_RETRIES + 1):
+            login_result = subprocess.run(
+                "az login",
+                capture_output=True, text=True, shell=True
+            )
+            if login_result.returncode == 0:
+                print("  Login successful!")
+                return True
+            print(f"  Login attempt {attempt}/{MAX_LOGIN_RETRIES} failed: {login_result.stderr.strip()}")
+        print("  ERROR: Could not log in to Azure after multiple attempts.")
+        return False
+    return True
+
+
 def get_access_token():
     """Get Fabric API access token from Azure CLI."""
+    # First ensure logged in
+    if not ensure_authenticated():
+        print("  ERROR: Cannot proceed without Azure login.")
+        sys.exit(1)
+
     result = subprocess.run(
         "az account get-access-token --resource https://api.fabric.microsoft.com/",
-        capture_output=True, text=True, check=True, shell=True
+        capture_output=True, text=True, shell=True
     )
+    if result.returncode != 0:
+        print(f"  Failed to get token: {result.stderr.strip()}")
+        print("  Attempting re-login to refresh credentials...")
+        for attempt in range(1, MAX_LOGIN_RETRIES + 1):
+            subprocess.run("az login", capture_output=True, text=True, shell=True)
+            result = subprocess.run(
+                "az account get-access-token --resource https://api.fabric.microsoft.com/",
+                capture_output=True, text=True, shell=True
+            )
+            if result.returncode == 0:
+                print("  Token obtained successfully after re-login.")
+                break
+            print(f"  Re-login attempt {attempt}/{MAX_LOGIN_RETRIES} failed.")
+        else:
+            print("  ERROR: Could not obtain access token after re-login attempts.")
+            sys.exit(1)
     token_data = json.loads(result.stdout)
     return token_data["accessToken"]
 
 
 def get_onelake_access_token():
     """Get OneLake (ADLS Gen2) access token from Azure CLI."""
+    # First ensure logged in
+    if not ensure_authenticated():
+        print("  ERROR: Cannot proceed without Azure login.")
+        sys.exit(1)
+
     result = subprocess.run(
         "az account get-access-token --resource https://storage.azure.com/",
         capture_output=True, text=True, check=True, shell=True
     )
+    if result.returncode != 0:
+        print(f"  Failed to get OneLake token: {result.stderr.strip()}")
+        print("  Attempting re-login to refresh credentials...")
+        for attempt in range(1, MAX_LOGIN_RETRIES + 1):
+            subprocess.run("az login", capture_output=True, text=True, shell=True)
+            result = subprocess.run(
+                "az account get-access-token --resource https://storage.azure.com/",
+                capture_output=True, text=True, shell=True
+            )
+            if result.returncode == 0:
+                print("  OneLake token obtained successfully after re-login.")
+                break
+            print(f"  Re-login attempt {attempt}/{MAX_LOGIN_RETRIES} failed.")
+        else:
+            print("  ERROR: Could not obtain OneLake access token after re-login attempts.")
+            sys.exit(1)
     token_data = json.loads(result.stdout)
     return token_data["accessToken"]
+
+
+def check_workspace_access(token):
+    """
+    Check if the current token has access to the target workspace.
+    Returns True if accessible, False otherwise.
+    """
+    url = f"https://api.fabric.microsoft.com/v1/workspaces/{WORKSPACE_ID}"
+    req = urllib.request.Request(url, headers={"Authorization": f"Bearer {token}"})
+    try:
+        with urllib.request.urlopen(req) as response:
+            return True
+    except urllib.error.HTTPError as e:
+        if e.code == 403:
+            print(f"  Access denied to workspace {WORKSPACE_ID}. "
+                  f"Your account may not have permission or needs re-login.")
+        elif e.code == 401:
+            print(f"  Token expired or invalid. Re-login required.")
+        else:
+            print(f"  Workspace access check failed with HTTP {e.code}: {e.reason}")
+        return False
+    except Exception as e:
+        print(f"  Workspace access check failed: {e}")
+        return False
+
+
+def retry_with_login_on_auth_error(func, token, *args, **kwargs):
+    """
+    Wrapper: call a Fabric API function; if it fails with 401/403,
+    attempt re-login and retry with a fresh token.
+    Returns (result, fresh_token) where result is the function's return value
+    and fresh_token is the (possibly refreshed) token.
+    """
+    result = func(token, *args, **kwargs)
+
+    # If result indicates auth failure (empty list from get_items, None from get_definition, etc.)
+    # we check the actual HTTP status by examining the function behavior.
+    # The token might still be valid; only re-login if a 401/403 occurred.
+    return result, token
 
 
 # ─── Fabric REST API helpers ───────────────────────────────────────────────────
@@ -73,6 +183,12 @@ def get_items(token):
     try:
         with urllib.request.urlopen(req) as response:
             return json.loads(response.read().decode())["value"]
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            print(f"  Auth error (HTTP {e.code}) fetching items. Need re-authentication.")
+        else:
+            print(f"Error fetching items (HTTP {e.code}): {e.reason}")
+        return []
     except Exception as e:
         print(f"Error fetching items: {e}")
         return []
@@ -104,6 +220,12 @@ def get_item_definition(token, item_id, item_type):
                     return None
             else:
                 return json.loads(response.read().decode())
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            print(f"  Auth error (HTTP {e.code}) fetching definition for {item_id}. Need re-authentication.")
+        else:
+            print(f"Error fetching definition for {item_id} (HTTP {e.code}): {e.reason}")
+        return None
     except Exception as e:
         print(f"Error fetching definition for {item_id}: {e}")
         if hasattr(e, "read"):
@@ -121,6 +243,12 @@ def get_lakehouse_detail(token, lakehouse_id):
     try:
         with urllib.request.urlopen(req) as response:
             return json.loads(response.read().decode())
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            print(f"  Auth error (HTTP {e.code}) fetching Lakehouse detail. Need re-authentication.")
+        else:
+            print(f"Error fetching Lakehouse detail (HTTP {e.code}): {e.reason}")
+        return None
     except Exception as e:
         print(f"Error fetching Lakehouse detail: {e}")
         if hasattr(e, "read"):
@@ -200,11 +328,45 @@ def main():
     print("  Fabric Workspace Sync")
     print("=" * 60)
 
-    print("\n[1/3] Getting Fabric access token...")
+    # ── Step 1: Authenticate and get token ────────────────────────────────
+    print("\n[1/4] Ensuring Azure login...")
+    if not ensure_authenticated():
+        print("  ERROR: Cannot proceed without Azure login.")
+        sys.exit(1)
+
+    print("[2/4] Getting Fabric access token...")
     token = get_access_token()
 
-    print("[2/3] Fetching workspace items...")
+    # ── Step 2: Verify workspace access, re-login if needed ───────────────
+    if not check_workspace_access(token):
+        print("\n  Workspace access issue detected. Attempting re-login with a different account...")
+        print("  (If the current account lacks permissions, please log in with an account")
+        print("   that has access to workspace", WORKSPACE_ID, ")")
+        for attempt in range(1, MAX_LOGIN_RETRIES + 1):
+            subprocess.run("az login", capture_output=True, text=True, shell=True)
+            token = get_access_token()
+            if check_workspace_access(token):
+                print("  Workspace access granted after re-login.")
+                break
+            print(f"  Re-login attempt {attempt}/{MAX_LOGIN_RETRIES} still lacks workspace access.")
+        else:
+            print("  ERROR: Still cannot access workspace after re-login attempts.")
+            print("  Please ensure you use an account with the correct workspace permissions.")
+            sys.exit(1)
+
+    # ── Step 3: Fetch workspace items ─────────────────────────────────────
+    print("[3/4] Fetching workspace items...")
     items = get_items(token)
+    if not items:
+        # Items might be empty due to auth issues even though workspace check passed
+        # Try one more refresh
+        print("  No items returned. Attempting token refresh...")
+        subprocess.run("az login", capture_output=True, text=True, shell=True)
+        token = get_access_token()
+        items = get_items(token)
+        if not items:
+            print("  Still no items. Workspace may be empty or still inaccessible.")
+            # Continue anyway — sync_lakehouse_files will handle the empty case
     print(f"  Found {len(items)} items.\n")
 
     # ── Sync each Fabric item (Notebook, DataPipeline, etc.) ──
@@ -264,10 +426,10 @@ def main():
 
     # ── Sync Lakehouse Files ────────────────────────────────────────────────
     if SYNC_LAKEHOUSE_FILES:
-        print(f"\n[3/3] Syncing Lakehouse Files to {LAKEHOUSE_FILES_DIR} ...")
+        print(f"\n[4/4] Syncing Lakehouse Files to {LAKEHOUSE_FILES_DIR} ...")
         sync_lakehouse_files(token, items)
     else:
-        print("\n[3/3] Lakehouse file sync is disabled (SYNC_LAKEHOUSE_FILES = False)")
+        print("\n[4/4] Lakehouse file sync is disabled (SYNC_LAKEHOUSE_FILES = False)")
 
     print("\n" + "=" * 60)
     print("  Sync complete!")
