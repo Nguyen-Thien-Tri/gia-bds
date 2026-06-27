@@ -613,8 +613,8 @@ def sync_lakehouse_files(token, items):
         # Build local path (preserve subdirectory structure)
         local_path = os.path.join(LAKEHOUSE_FILES_DIR, remote_path)
 
-        # Skip very large files (>50MB) with warning
-        if file_size > 50 * 1024 * 1024:
+        # Skip very large files (>5MB) with warning
+        if file_size > 5 * 1024 * 1024:
             print(f"    [Skip] Large file ({file_size / 1024 / 1024:.1f}MB): {remote_path}")
             skipped += 1
             continue
