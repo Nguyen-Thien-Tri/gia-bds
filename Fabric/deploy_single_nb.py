@@ -9,7 +9,7 @@ import urllib.error
 
 WORKSPACE_ID = "949b0a74-d905-4e10-b5c7-7d27c08a8165"
 BASE_DIR = r"c:\My projects\Real-estate-website-project\Fabric"
-DISPLAY_NAME = "ML model v11"
+DISPLAY_NAME = "ML model"
 ITEM_TYPE = "Notebook"
 
 # ─── Authentication ────────────────────────────────────────────────────────────
