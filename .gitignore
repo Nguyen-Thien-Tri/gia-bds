@@ -54,9 +54,9 @@ wheels/
 *.egg
 
 # Large ML Models & Data (> 50MB)
-House Price Prediction/*.joblib
-House Price Prediction/*.csv
-House Price Prediction/catboost_info/
+House Price Prediction/**/*.joblib
+House Price Prediction/**/*.csv
+House Price Prediction/**/catboost_info/
 
 # Service account keys & secrets
 Fabric/Lakehouse.Lakehouse/Files/*.json
