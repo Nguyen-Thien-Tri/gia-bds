@@ -57,3 +57,9 @@ wheels/
 House Price Prediction/*.joblib
 House Price Prediction/*.csv
 House Price Prediction/catboost_info/
+
+# Service account keys & secrets
+Fabric/Lakehouse.Lakehouse/Files/*.json
+**/*service-account*.json
+**/*firebase-adminsdk*.json
+**/serviceAccountKey.json
