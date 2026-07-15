@@ -24,7 +24,7 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
 COPY main.py prediction.py ./
-COPY *.joblib ./
+COPY Models ./Models
 
 # Cloud Run provides PORT env var (default 8080)
 ENV PORT=8080

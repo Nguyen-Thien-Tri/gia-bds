@@ -6,16 +6,16 @@
       "jobType": "Execute",
       "configuration": {
         "type": "Monthly",
-        "startDateTime": "2026-06-26T00:00:00",
-        "endDateTime": "2027-06-26T00:00:00",
+        "startDateTime": "2026-07-12T00:00:00",
+        "endDateTime": "2027-07-12T00:00:00",
         "localTimeZoneId": "SE Asia Standard Time",
         "times": [
-          "11:03"
+          "13:10"
         ],
         "recurrence": 1,
         "occurrence": {
           "occurrenceType": "DayOfMonth",
-          "dayOfMonth": 26
+          "dayOfMonth": 12
         }
       }
     }

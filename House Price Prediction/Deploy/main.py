@@ -1,9 +1,9 @@
 """
-FastAPI Application - House Price Prediction API
+FastAPI Application - House Price Prediction API V11
 Deploy target: Google Cloud Run
 """
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
@@ -17,41 +17,59 @@ logger = logging.getLogger(__name__)
 # ── App Initialisation ──────────────────────────────────
 app = FastAPI(
     title="House Price Prediction API",
-    description="Predict Vietnamese real estate prices using XGBoost + LightGBM ensemble",
-    version="1.0.0",
+    description="Predict Vietnamese real estate prices using XGBoost + LightGBM ensemble (V11)",
+    version="1.1.0",
 )
 
 # ── Models (lazy-loaded on first request) ───────────────
 _model_xgb = None
 _model_lgb = None
 _encoder = None
+_kmeans = None
+_meta = None
 
 
 def get_models():
-    global _model_xgb, _model_lgb, _encoder
+    global _model_xgb, _model_lgb, _encoder, _kmeans, _meta
     if _model_xgb is None:
-        logger.info("Loading ML models...")
-        _model_xgb, _model_lgb, _encoder = load_models()
-        logger.info("Models loaded successfully.")
-    return _model_xgb, _model_lgb, _encoder
+        logger.info("Loading ML models (V11)...")
+        _model_xgb, _model_lgb, _encoder, _kmeans, _meta = load_models()
+        logger.info(
+            "Models loaded successfully. V11 | MAPE: %s | XGB weight: %.2f",
+            _meta.get("mape", "N/A"),
+            _meta.get("xgb_weight", 0.7),
+        )
+    return _model_xgb, _model_lgb, _encoder, _kmeans, _meta
 
 
 # ── Request Schema ──────────────────────────────────────
 class PropertyInput(BaseModel):
+    # ── Core fields ──────────────────────────────────────
     Loại_BĐS: str = Field(..., alias="Loại BĐS", examples=["nhà riêng"])
     Quận: str = Field(..., examples=["Đống Đa"])
-    Phường_Xã_Thị_trấn: str = Field("", alias="Phường Xã Thị trấn", examples=["Phường Láng Hạ"])
+    Địa_chỉ_1: str = Field("", alias="Địa chỉ 1", examples=["Phường Láng Hạ"])
     Diện_tích: float = Field(..., alias="Diện tích", gt=0, examples=[50.0])
     Tọa_độ_x: float = Field(..., alias="Tọa độ x", examples=[21.015])
     Tọa_độ_y: float = Field(..., alias="Tọa độ y", examples=[105.815])
+
+    # ── Optional numeric fields ──────────────────────────
     Số_tầng: Optional[float] = Field(None, alias="Số tầng", examples=[4])
     Số_phòng_ngủ: Optional[float] = Field(None, alias="Số phòng ngủ", examples=[3])
+    Số_phòng_tắm_vệ_sinh: Optional[float] = Field(None, alias="Số phòng tắm - vệ sinh", examples=[2])
     Mặt_tiền: Optional[float] = Field(None, alias="Mặt tiền", examples=[4.0])
     Đường_vào: Optional[float] = Field(None, alias="Đường vào", examples=[3.0])
+
+    # ── Optional categorical fields ──────────────────────
+    Hướng_nhà: Optional[str] = Field(None, alias="Hướng nhà", examples=["Đông"])
+    Hướng_ban_công: Optional[str] = Field(None, alias="Hướng ban công", examples=["Tây Nam"])
+    Pháp_lý: Optional[str] = Field(None, alias="Pháp lý", examples=["Sổ đỏ"])
+    Nội_thất: Optional[str] = Field(None, alias="Nội thất", examples=["Đầy đủ"])
+    Căn_góc: Optional[str] = Field("Không", alias="Căn góc", examples=["Có"])
+
+    # ── Description text ─────────────────────────────────
     Mô_tả: Optional[str] = Field("", alias="Mô tả", examples=["Nhà đẹp phố Láng Hạ, ô tô vào nhà, kinh doanh tốt, nở hậu."])
 
     class Config:
-        # Allow both underscored and Vietnamese-named fields
         populate_by_name = True
 
 
@@ -65,15 +83,15 @@ class PriceResponse(BaseModel):
 @app.get("/health", tags=["System"])
 async def health():
     """Health check endpoint for Cloud Run."""
-    return {"status": "ok", "service": "house-price-prediction"}
+    return {"status": "ok", "service": "house-price-prediction-v11"}
 
 
 # ── Prediction Endpoint ─────────────────────────────────
 @app.post("/predict", response_model=PriceResponse, tags=["Prediction"])
 async def predict(input_data: PropertyInput):
     """
-    Predict house price based on property information.
-    
+    Predict house price based on property information (V11).
+
     Returns the predicted price in both VND and billions VND.
     """
     try:
@@ -84,18 +102,24 @@ async def predict(input_data: PropertyInput):
 
     # Convert Pydantic model → dict with original Vietnamese keys
     raw = input_data.model_dump(by_alias=True)
-    # Alias-free keys for the prediction module
+
     property_data = {
         "Loại BĐS": raw["Loại BĐS"],
         "Quận": raw["Quận"],
-        "Phường Xã Thị trấn": raw["Phường Xã Thị trấn"],
+        "Địa chỉ 1": raw.get("Địa chỉ 1", ""),
         "Diện tích": raw["Diện tích"],
         "Tọa độ x": raw["Tọa độ x"],
         "Tọa độ y": raw["Tọa độ y"],
         "Số tầng": raw.get("Số tầng", 0) or 0,
         "Số phòng ngủ": raw.get("Số phòng ngủ", 0) or 0,
+        "Số phòng tắm - vệ sinh": raw.get("Số phòng tắm - vệ sinh", 0) or 0,
         "Mặt tiền": raw.get("Mặt tiền", 0) or 0,
         "Đường vào": raw.get("Đường vào", 0) or 0,
+        "Hướng nhà": raw.get("Hướng nhà", ""),
+        "Hướng ban công": raw.get("Hướng ban công", ""),
+        "Pháp lý": raw.get("Pháp lý", ""),
+        "Nội thất": raw.get("Nội thất", ""),
+        "Căn góc": raw.get("Căn góc", "Không"),
         "Mô tả": raw.get("Mô tả", "") or "",
     }
 
@@ -115,7 +139,7 @@ async def predict(input_data: PropertyInput):
 @app.get("/", tags=["System"])
 async def root():
     return {
-        "message": "House Price Prediction API",
+        "message": "House Price Prediction API V11",
         "docs": "/docs",
         "health": "/health",
     }

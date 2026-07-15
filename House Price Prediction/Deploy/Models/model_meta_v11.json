@@ -1,8 +1,8 @@
 {
   "version": "V11",
-  "mape": "12.44%",
-  "xgb_weight": 0.9,
-  "lgb_weight": 0.09999999999999998,
+  "mape": "25.16%",
+  "xgb_weight": 0.7000000000000001,
+  "lgb_weight": 0.29999999999999993,
   "features": [
     "Loại BĐS",
     "Quận",
@@ -65,21 +65,21 @@
     "mat_tien_x_tang"
   ],
   "xgb_params": {
-    "n_estimators": 3070,
-    "learning_rate": 0.028869976977683284,
-    "max_depth": 11,
-    "subsample": 0.7148808676078634,
-    "colsample_bytree": 0.6530913034499797,
-    "min_child_weight": 2
+    "n_estimators": 2034,
+    "learning_rate": 0.0106958260055787,
+    "max_depth": 12,
+    "subsample": 0.7379954501429487,
+    "colsample_bytree": 0.8559292652705,
+    "min_child_weight": 1
   },
   "lgb_params": {
-    "n_estimators": 3283,
-    "learning_rate": 0.009511683527427987,
-    "num_leaves": 293,
-    "subsample": 0.8137210398984707,
-    "colsample_bytree": 0.6892446389647499,
-    "min_child_samples": 5
+    "n_estimators": 4985,
+    "learning_rate": 0.029694908854043467,
+    "num_leaves": 956,
+    "subsample": 0.7922734218620714,
+    "colsample_bytree": 0.7670378061515748,
+    "min_child_samples": 6
   },
-  "n_train": 13991,
-  "n_test": 2470
+  "n_train": 8441,
+  "n_test": 1490
 }
