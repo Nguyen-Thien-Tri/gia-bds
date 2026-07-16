@@ -9,7 +9,7 @@ import AboutPage from "./pages/VeChungToi/AboutPage";
 
 import FAQPage from "./pages/FaqPage/FAQPage";
 import BieuDoGiaThuePage from "./pages/BieuDoGiaThuePage";
-// import ValuationPage from "./pages/ValuationPage/ValuationPage";
+import ValuationPage from "./pages/ValuationPage/ValuationPage";
 import "./index.css";
 
 const rootElement = document.getElementById("root");
@@ -29,7 +29,7 @@ if (rootElement) {
             {/* <Route path="/ve-chung-toi" element={<AboutPage />} /> */}
 
             <Route path="/cau-hoi-thuong-gap" element={<FAQPage />} />
-            {/* <Route path="/dinh-gia-bat-dong-san" element={<ValuationPage />} /> */}
+            <Route path="/dinh-gia-bat-dong-san" element={<ValuationPage />} />
           </Routes>
         </BrowserRouter>
       </HelmetProvider>
