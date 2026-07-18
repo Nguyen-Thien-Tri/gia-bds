@@ -61,6 +61,8 @@ House Price Prediction/**/catboost_info/
 
 # Service account keys & secrets
 Fabric/Lakehouse.Lakehouse/Files/*.json
+Fabric/Lakehouse Files/*.json
+**/real-estate-project-*.json
 **/*service-account*.json
 **/*firebase-adminsdk*.json
 **/serviceAccountKey.json
