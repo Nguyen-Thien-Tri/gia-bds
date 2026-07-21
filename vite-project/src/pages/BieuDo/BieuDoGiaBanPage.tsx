@@ -1,11 +1,11 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import SEOTags from "./TrangChu/components/SEOTags";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import SEOTags from "../TrangChu/components/SEOTags";
 import SharedRealEstateAnalytics, {
   RealEstateRecord,
-} from "./BieuDo/components/SharedRealEstateAnalytics";
-import { BDS_colorMap } from "../assets/colors";
-import GoogleTag from "../components/GoogleTag";
+} from "./components/SharedRealEstateAnalytics";
+import { BDS_colorMap } from "../../assets/colors";
+import GoogleTag from "../../components/GoogleTag";
 import { Helmet } from "react-helmet-async";
 
 const realEstateTypesForSale = Object.keys(

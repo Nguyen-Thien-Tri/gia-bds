@@ -141,7 +141,7 @@ const Header: React.FC = () => {
               Biểu đồ giá cho thuê
             </NavLink>
 
-            {/* <NavLink
+            <NavLink
               to="/dinh-gia-bat-dong-san"
               className={({ isActive }: { isActive: boolean }) =>
                 `${underlineBase} ${
@@ -152,7 +152,7 @@ const Header: React.FC = () => {
               }
             >
               Định giá
-            </NavLink> */}
+            </NavLink>
 
             <NavLink
               to="/cau-hoi-thuong-gap"
@@ -275,6 +275,20 @@ const Header: React.FC = () => {
               }
             >
               Biểu đồ giá cho thuê
+            </NavLink>
+
+            <NavLink
+              to="/dinh-gia-bat-dong-san"
+              onClick={() => setMobileOpen(false)}
+              className={({ isActive }: { isActive: boolean }) =>
+                `block w-full text-left font-semibold py-2 px-2 rounded hover:bg-gray-50 ${
+                  isActive
+                    ? "italic text-slate-900"
+                    : "not-italic text-slate-700"
+                }`
+              }
+            >
+              Định giá
             </NavLink>
 
             <NavLink

@@ -29,7 +29,7 @@ def load_models():
     encoder = joblib.load(os.path.join(MODEL_DIR, "master_encoder_v11.joblib"))
     kmeans = joblib.load(os.path.join(MODEL_DIR, "master_kmeans_v11.joblib"))
 
-    with open(os.path.join(MODEL_DIR, "model_meta_v11.json"), "r") as f:
+    with open(os.path.join(MODEL_DIR, "model_meta_v11.json"), "r", encoding="utf-8") as f:
         meta = json.load(f)
 
     return model_xgb, model_lgb, encoder, kmeans, meta

@@ -1,8 +1,8 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import SEOTags from "./TrangChu/components/SEOTags";
-import SharedRealEstateAnalytics from "./BieuDo/components/SharedRealEstateAnalytics";
-import GoogleTag from "../components/GoogleTag";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import SEOTags from "../TrangChu/components/SEOTags";
+import SharedRealEstateAnalytics from "./components/SharedRealEstateAnalytics";
+import GoogleTag from "../../components/GoogleTag";
 import { Helmet } from "react-helmet-async";
 
 const realEstateTypesForRent = [

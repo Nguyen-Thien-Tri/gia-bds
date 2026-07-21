@@ -10,9 +10,18 @@ import {
   CheckCircle2,
   TrendingUp,
   Home,
+  Compass,
+  Layers,
+  Bed,
+  Bath,
+  DoorOpen,
+  FileText,
+  CornerDownRight,
+  Map,
 } from "lucide-react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { provinceDict } from "../../assets/geo";
 
 // Types for form data
 interface ValuationResult {
@@ -20,6 +29,39 @@ interface ValuationResult {
   confidence: string;
   priceRange: { min: number; max: number };
 }
+
+// Directions for house/balcony
+const directions = [
+  "Đông",
+  "Tây",
+  "Nam",
+  "Bắc",
+  "Đông Bắc",
+  "Tây Bắc",
+  "Đông Nam",
+  "Tây Nam",
+];
+
+// Legal status options
+const legalStatuses = [
+  "Sổ đỏ",
+  "Sổ hồng",
+  "Sổ chung",
+  "Hợp đồng mua bán",
+  "Giấy tờ viết tay",
+  "Chưa có sổ",
+  "Đang chờ sổ",
+];
+
+// Interior options
+const interiorOptions = [
+  "Đầy đủ",
+  "Cao cấp",
+  "Cơ bản",
+  "Hoàn thiện thô",
+  "Chưa hoàn thiện",
+  "Không nội thất",
+];
 
 export default function ValuationPage() {
   const [loading, setLoading] = useState(false);
@@ -29,36 +71,55 @@ export default function ValuationPage() {
   // Rate limiting state
   const [timeLeft, setTimeLeft] = useState(0);
 
+  // Dynamic district list based on selected city
+  const [availableDistricts, setAvailableDistricts] = useState<string[]>([]);
+
   // Form State
   const [formData, setFormData] = useState({
-    propertyType: "apartment",
+    propertyType: "nhà riêng",
     transactionType: "sale", // sale | rent
     city: "",
     district: "",
+    ward: "", // Địa chỉ 1 - Phường/Xã
     area: "",
     price: "", // Optional user input for current price check
     address: "",
+    // New fields for ML model
+    floors: "",
+    bedrooms: "",
+    bathrooms: "",
+    frontage: "", // Mặt tiền
+    alleyWidth: "", // Đường vào
+    houseDirection: "",
+    balconyDirection: "",
+    legalStatus: "",
+    interior: "",
+    cornerUnit: "Không", // Căn góc
+    latitude: "", // Tọa độ x
+    longitude: "", // Tọa độ y
+    description: "", // Mô tả
   });
 
   // Mock Data for Dropdowns
   const propertyTypes = [
-    { value: "apartment", label: "Căn hộ chung cư" },
-    { value: "house", label: "Nhà riêng" },
-    { value: "villa", label: "Biệt thự" },
-    { value: "land", label: "Đất nền" },
-    { value: "office", label: "Văn phòng" },
+    { value: "nhà riêng", label: "Nhà riêng" },
+    { value: "căn hộ chung cư", label: "Căn hộ chung cư" },
+    { value: "đất", label: "Đất nền" },
+    { value: "nhà mặt phố", label: "Nhà mặt phố" },
+    { value: "biệt thự", label: "Biệt thự" },
+    { value: "văn phòng", label: "Văn phòng" },
   ];
 
-  const cities = ["Hà Nội", "TP. Hồ Chí Minh", "Đà Nẵng", "Bình Dương"];
-  const districts = [
-    "Quận 1",
-    "Quận 2",
-    "Quận 3",
-    "Quận 7",
-    "Bình Thạnh",
-    "Ba Đình",
-    "Cầu Giấy",
-  ];
+  const cities = Object.keys(provinceDict).sort();
+
+  // Update districts when city changes
+  useEffect(() => {
+    if (formData.city && provinceDict[formData.city]) {
+      setAvailableDistricts(provinceDict[formData.city].sort());
+    } else {
+      setAvailableDistricts([]);
+    }
+  }, [formData.city]);
 
   // Check Rate Limit on Mount
   useEffect(() => {
@@ -93,7 +154,7 @@ export default function ValuationPage() {
   }, [loading]); // Re-check when loading finishes (submission attempt)
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -112,11 +173,6 @@ export default function ValuationPage() {
     const now = Date.now();
 
     if (valuationCount >= 3) {
-      // Check if 1 minute has passed since the FIRST of the batch,
-      // simplified here to just check the last timestamp window or force cooldown
-      // Better logic: Store timestamp of first attempt.
-      // For this demo: simple sliding window reset on 'lastValuationTime' isn't perfect but works for simple throttling.
-      // Let's stick to: if count >= 3 AND time < 60s from last op, block.
       if (lastValuationTime && now - parseInt(lastValuationTime) < 60000) {
         setTimeLeft(
           60 - Math.floor((now - parseInt(lastValuationTime)) / 1000),
@@ -243,86 +299,384 @@ export default function ValuationPage() {
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {/* Property Type */}
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                          <Building2 size={16} /> Loại bất động sản
-                        </label>
-                        <select
-                          name="propertyType"
-                          value={formData.propertyType}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
-                        >
-                          {propertyTypes.map((type) => (
-                            <option key={type.value} value={type.value}>
-                              {type.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
+                    {/* ── Section: Thông tin cơ bản ── */}
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <Home size={20} className="text-indigo-500" />
+                        Thông tin cơ bản
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Property Type */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Building2 size={16} /> Loại bất động sản
+                          </label>
+                          <select
+                            name="propertyType"
+                            value={formData.propertyType}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                          >
+                            {propertyTypes.map((type) => (
+                              <option key={type.value} value={type.value}>
+                                {type.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
-                      {/* Area */}
+                        {/* Area */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Ruler size={16} /> Diện tích (m²)
+                          </label>
+                          <input
+                            type="number"
+                            name="area"
+                            value={formData.area}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 80"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                            required
+                          />
+                        </div>
+
+                        {/* City */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <MapPin size={16} /> Tỉnh / Thành phố
+                          </label>
+                          <select
+                            name="city"
+                            value={formData.city}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                            required
+                          >
+                            <option value="">Chọn Tỉnh/Thành</option>
+                            {cities.map((c) => (
+                              <option key={c} value={c}>
+                                {c}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* District */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <MapPin size={16} /> Quận / Huyện
+                          </label>
+                          <select
+                            name="district"
+                            value={formData.district}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                            required
+                          >
+                            <option value="">Chọn Quận/Huyện</option>
+                            {availableDistricts.map((d) => (
+                              <option key={d} value={d}>
+                                {d}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Ward (Địa chỉ 1) */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Map size={16} /> Phường / Xã
+                          </label>
+                          <input
+                            type="text"
+                            name="ward"
+                            value={formData.ward}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: Phường Láng Hạ"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Detailed Address */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Home size={16} /> Địa chỉ chi tiết
+                          </label>
+                          <input
+                            type="text"
+                            name="address"
+                            value={formData.address}
+                            onChange={handleInputChange}
+                            placeholder="Số nhà, tên đường..."
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ── Section: Thông số kỹ thuật ── */}
+                    <div className="border-t border-gray-100 pt-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <Layers size={20} className="text-indigo-500" />
+                        Thông số kỹ thuật
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Floors */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Layers size={16} /> Số tầng
+                          </label>
+                          <input
+                            type="number"
+                            name="floors"
+                            value={formData.floors}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 4"
+                            min="1"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Bedrooms */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Bed size={16} /> Số phòng ngủ
+                          </label>
+                          <input
+                            type="number"
+                            name="bedrooms"
+                            value={formData.bedrooms}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 3"
+                            min="1"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Bathrooms */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Bath size={16} /> Số phòng tắm / WC
+                          </label>
+                          <input
+                            type="number"
+                            name="bathrooms"
+                            value={formData.bathrooms}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 2"
+                            min="1"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Frontage (Mặt tiền) */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <DoorOpen size={16} /> Mặt tiền (m)
+                          </label>
+                          <input
+                            type="number"
+                            name="frontage"
+                            value={formData.frontage}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 4.5"
+                            step="0.1"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Alley Width (Đường vào) */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <CornerDownRight size={16} /> Đường vào (m)
+                          </label>
+                          <input
+                            type="number"
+                            name="alleyWidth"
+                            value={formData.alleyWidth}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 3.5"
+                            step="0.1"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Corner Unit (Căn góc) */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Building2 size={16} /> Căn góc
+                          </label>
+                          <select
+                            name="cornerUnit"
+                            value={formData.cornerUnit}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                          >
+                            <option value="Không">Không</option>
+                            <option value="Có">Có</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ── Section: Hướng & Pháp lý ── */}
+                    <div className="border-t border-gray-100 pt-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <Compass size={20} className="text-indigo-500" />
+                        Hướng & Pháp lý
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* House Direction */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Compass size={16} /> Hướng nhà
+                          </label>
+                          <select
+                            name="houseDirection"
+                            value={formData.houseDirection}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                          >
+                            <option value="">Chọn hướng</option>
+                            {directions.map((d) => (
+                              <option key={d} value={d}>
+                                {d}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Balcony Direction */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Compass size={16} /> Hướng ban công
+                          </label>
+                          <select
+                            name="balconyDirection"
+                            value={formData.balconyDirection}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                          >
+                            <option value="">Chọn hướng</option>
+                            {directions.map((d) => (
+                              <option key={d} value={d}>
+                                {d}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Legal Status */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <FileText size={16} /> Pháp lý
+                          </label>
+                          <select
+                            name="legalStatus"
+                            value={formData.legalStatus}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                          >
+                            <option value="">Chọn pháp lý</option>
+                            {legalStatuses.map((s) => (
+                              <option key={s} value={s}>
+                                {s}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Interior */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <Home size={16} /> Nội thất
+                          </label>
+                          <select
+                            name="interior"
+                            value={formData.interior}
+                            onChange={handleInputChange}
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
+                          >
+                            <option value="">Chọn nội thất</option>
+                            {interiorOptions.map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ── Section: Tọa độ (nâng cao) ── */}
+                    <div className="border-t border-gray-100 pt-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <Map size={20} className="text-indigo-500" />
+                        Tọa độ{" "}
+                        <span className="text-gray-400 font-normal text-sm">
+                          (Nâng cao - hỗ trợ AI định giá chính xác hơn)
+                        </span>
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Latitude */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <MapPin size={16} /> Vĩ độ (Latitude)
+                          </label>
+                          <input
+                            type="number"
+                            name="latitude"
+                            value={formData.latitude}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 21.015"
+                            step="0.0001"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+
+                        {/* Longitude */}
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                            <MapPin size={16} /> Kinh độ (Longitude)
+                          </label>
+                          <input
+                            type="number"
+                            name="longitude"
+                            value={formData.longitude}
+                            onChange={handleInputChange}
+                            placeholder="Ví dụ: 105.815"
+                            step="0.0001"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ── Section: Mô tả ── */}
+                    <div className="border-t border-gray-100 pt-6">
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <FileText size={20} className="text-indigo-500" />
+                        Mô tả chi tiết{" "}
+                        <span className="text-gray-400 font-normal text-sm">
+                          (AI sẽ phân tích mô tả để định giá chính xác hơn)
+                        </span>
+                      </h3>
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                          <Ruler size={16} /> Diện tích (m²)
-                        </label>
-                        <input
-                          type="number"
-                          name="area"
-                          value={formData.area}
+                        <textarea
+                          name="description"
+                          value={formData.description}
                           onChange={handleInputChange}
-                          placeholder="Ví dụ: 80"
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
-                          required
+                          placeholder="Mô tả chi tiết về bất động sản (ví dụ: Nhà đẹp phố Láng Hạ, ô tô vào nhà, kinh doanh tốt, nở hậu.)"
+                          rows={4}
+                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none resize-none"
                         />
                       </div>
+                    </div>
 
-                      {/* City */}
+                    {/* Optional Price */}
+                    <div className="border-t border-gray-100 pt-6">
                       <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                          <MapPin size={16} /> Tỉnh / Thành phố
-                        </label>
-                        <select
-                          name="city"
-                          value={formData.city}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
-                          required
-                        >
-                          <option value="">Chọn Tỉnh/Thành</option>
-                          {cities.map((c) => (
-                            <option key={c} value={c}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* District */}
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                          <MapPin size={16} /> Quận / Huyện
-                        </label>
-                        <select
-                          name="district"
-                          value={formData.district}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none cursor-pointer"
-                          required
-                        >
-                          <option value="">Chọn Quận/Huyện</option>
-                          {districts.map((d) => (
-                            <option key={d} value={d}>
-                              {d}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      {/* Optional Price */}
-                      <div className="md:col-span-2 space-y-2">
                         <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                           <DollarSign size={16} /> Giá mong muốn / Hiện tại
                           (VND){" "}
@@ -336,21 +690,6 @@ export default function ValuationPage() {
                           value={formData.price}
                           onChange={handleInputChange}
                           placeholder="Nhập giá để so sánh..."
-                          className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
-                        />
-                      </div>
-
-                      {/* Detailed Address */}
-                      <div className="md:col-span-2 space-y-2">
-                        <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-                          <Home size={16} /> Địa chỉ chi tiết
-                        </label>
-                        <input
-                          type="text"
-                          name="address"
-                          value={formData.address}
-                          onChange={handleInputChange}
-                          placeholder="Số nhà, tên đường..."
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all bg-gray-50/50 outline-none"
                         />
                       </div>
