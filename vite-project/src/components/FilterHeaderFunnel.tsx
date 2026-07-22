@@ -22,14 +22,14 @@ export default function FilterHeaderFunnel({
         // title="Mở bộ lọc"
         whileTap={{ scale: 0.96 }}
         whileHover={{ translateY: -2 }}
-        className="relative flex items-center justify-center p-2 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400"
+        className="relative flex items-center justify-center p-2 rounded-2xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
       >
-        <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-50 to-white">
-          <Funnel className="w-5 h-5 text-indigo-600" strokeWidth={1.8} />
+        <span className="flex items-center justify-center w-9 h-9 rounded-lg bg-blue-600">
+          <Funnel className="w-5 h-5 text-white" strokeWidth={1.8} />
         </span>
 
         {activeCount > 0 && (
-          <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold leading-none text-white rounded-full bg-indigo-600 shadow">
+          <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold leading-none text-white rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shadow">
             {activeCount}
           </span>
         )}

@@ -4,11 +4,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import TrangChu from "./pages/TrangChu/TrangChu";
-import BieuDoGiaBanPage from "./pages/BieuDoGiaBanPage";
+import BieuDoGiaBanPage from "./pages/BieuDo/BieuDoGiaBanPage";
 import AboutPage from "./pages/VeChungToi/AboutPage";
 
 import FAQPage from "./pages/FaqPage/FAQPage";
-import BieuDoGiaThuePage from "./pages/BieuDoGiaThuePage";
+import BieuDoGiaThuePage from "./pages/BieuDo/BieuDoGiaThuePage";
 import ValuationPage from "./pages/ValuationPage/ValuationPage";
 import "./index.css";
 

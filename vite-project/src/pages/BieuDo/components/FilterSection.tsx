@@ -643,7 +643,7 @@ export function FiltersContainer({
               ${
                 cooldown > 0
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-blue-500 text-white hover:bg-blue-600 hover:shadow-lg"
+                  : "bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 hover:shadow-lg"
               }`}
           >
             {cooldown > 0 ? `Xem (${cooldown}s)` : "Xem"}

@@ -141,7 +141,7 @@ const Footer: React.FC = () => {
             <div className="flex flex-col justify-between items-center space-y-4 md:space-y-0">
               <div className="text-center">
                 <p className="text-gray-400 text-sm">
-                  © 2025 giabatdongsan.info.vn. All rights reserved.
+                  © 2026 giabatdongsan.info.vn. All rights reserved.
                 </p>
                 <p className="text-gray-500 text-xs mt-1">
                   Nền tảng phân tích thị trường bất động sản hàng đầu Việt Nam
