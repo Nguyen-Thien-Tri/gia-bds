@@ -66,3 +66,5 @@ Fabric/Lakehouse Files/*.json
 **/*service-account*.json
 **/*firebase-adminsdk*.json
 **/serviceAccountKey.json
+
+vite-project/SECURITY_AUDIT.md

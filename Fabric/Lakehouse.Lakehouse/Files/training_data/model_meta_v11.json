@@ -1,8 +1,8 @@
 {
   "version": "V11",
-  "mape": "12.44%",
-  "xgb_weight": 0.9,
-  "lgb_weight": 0.09999999999999998,
+  "mape": "16.88%",
+  "xgb_weight": 0.45,
+  "lgb_weight": 0.55,
   "features": [
     "Loại BĐS",
     "Quận",
@@ -52,11 +52,6 @@
     "feat_sieu_thi",
     "feat_benh_vien",
     "feat_tttm",
-    "feat_nha_moi",
-    "feat_cai_tao",
-    "feat_nha_cu",
-    "feat_nhieu_mat_tien",
-    "feat_mat_tien_sau",
     "dist_to_metro",
     "dist_to_center",
     "type_dist",
@@ -65,21 +60,21 @@
     "mat_tien_x_tang"
   ],
   "xgb_params": {
-    "n_estimators": 3070,
-    "learning_rate": 0.028869976977683284,
+    "n_estimators": 4501,
+    "learning_rate": 0.01246772413780458,
     "max_depth": 11,
-    "subsample": 0.7148808676078634,
-    "colsample_bytree": 0.6530913034499797,
+    "subsample": 0.8635210879484387,
+    "colsample_bytree": 0.6020304108873197,
     "min_child_weight": 2
   },
   "lgb_params": {
-    "n_estimators": 3283,
-    "learning_rate": 0.009511683527427987,
-    "num_leaves": 293,
-    "subsample": 0.8137210398984707,
-    "colsample_bytree": 0.6892446389647499,
-    "min_child_samples": 5
+    "n_estimators": 3388,
+    "learning_rate": 0.008483239640819826,
+    "num_leaves": 907,
+    "subsample": 0.7684084379720895,
+    "colsample_bytree": 0.6470469722251005,
+    "min_child_samples": 13
   },
-  "n_train": 13991,
-  "n_test": 2470
+  "n_train": 43839,
+  "n_test": 7737
 }

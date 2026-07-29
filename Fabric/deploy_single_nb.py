@@ -99,12 +99,39 @@ def get_workspace_items(token):
 
 # ─── Notebook definition builder ──────────────────────────────────────────────
 
+def normalize_source(src):
+    """Convert a cell 'source' from str to list[str] (nbformat 4+ standard).
+
+    Fabric's notebook API requires source to be a list of strings, not a
+    single string.  This normalises the field so the notebook can be deployed.
+    """
+    if isinstance(src, list):
+        return src  # already correct
+    if src is None:
+        return []
+    if not isinstance(src, str):
+        src = str(src)
+    if src == "":
+        return []
+    lines = src.split("\n")
+    # Add trailing newline to all lines except the last
+    result = [line + "\n" for line in lines[:-1]]
+    result.append(lines[-1])
+    return result
+
+
 def rewrite_notebook_content(content_bytes):
-    """Fix notebook JSON: update lakehouse and kernel settings."""
+    """Fix notebook JSON: update lakehouse and kernel settings and normalise cell sources."""
     try:
         data = json.loads(content_bytes.decode("utf-8"))
     except Exception:
         return content_bytes
+
+    # 0. Normalise cell source fields (str -> list[str])
+    #    Fabric requires nbformat 4+ list-of-strings format; a bare string
+    #    causes InvalidNotebookContent errors.
+    for cell in data.get("cells", []):
+        cell["source"] = normalize_source(cell.get("source"))
 
     metadata = data.setdefault("metadata", {})
 

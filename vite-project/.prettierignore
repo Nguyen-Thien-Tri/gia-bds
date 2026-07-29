@@ -1,0 +1,2 @@
+# Ignore geo data file to preserve manual formatting
+src/assets/geo.ts

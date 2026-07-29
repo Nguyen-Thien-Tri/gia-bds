@@ -143,9 +143,9 @@ const Footer: React.FC = () => {
                 <p className="text-gray-400 text-sm">
                   © 2026 giabatdongsan.info.vn. All rights reserved.
                 </p>
-                <p className="text-gray-500 text-xs mt-1">
+                {/* <p className="text-gray-500 text-xs mt-1">
                   Nền tảng phân tích thị trường bất động sản hàng đầu Việt Nam
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

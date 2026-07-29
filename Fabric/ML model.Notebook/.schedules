@@ -10,12 +10,12 @@
         "endDateTime": "2027-06-28T00:00:00",
         "localTimeZoneId": "SE Asia Standard Time",
         "times": [
-          "21:08"
+          "12:46"
         ],
         "recurrence": 1,
         "occurrence": {
           "occurrenceType": "DayOfMonth",
-          "dayOfMonth": 14
+          "dayOfMonth": 19
         }
       }
     }
